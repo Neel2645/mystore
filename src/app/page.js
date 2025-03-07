@@ -6,11 +6,11 @@ export default async function Products() {
 
     return (
         <>
-            <div className='grid grid-cols-4 gap-y-12 gap-x-14 mx-24 my-12'>
+            <div className='grid md:grid-cols-3 xl:grid-cols-4 grid-cols-1  gap-y-12 gap-x-14 mx-24 my-12'>
                 {
                     products.map((prod)=>{
                         return(
-                            <ProductCard product={prod}/>
+                            <ProductCard product={prod} key={prod.id}/>
                         )
                     })
                 }

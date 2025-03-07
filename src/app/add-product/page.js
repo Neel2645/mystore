@@ -17,7 +17,7 @@ export default function AddProduct() {
     ).run(newProduct.name,newProduct.price,newProduct.image.name);
 
     redirect('/');
-  }
+  } 
 
   return (
     <div style={{ margin: "4em" }}>
@@ -41,7 +41,7 @@ export default function AddProduct() {
                   <input
                     type="text"
                     name="name"
-                    className="block w-full rounded-md border-0 py-1.5 
+                    className="block p-2 w-full rounded-md border-0 py-1.5 
                                         text-gray-900 shadow-sm
                                         ring-1 ring-inset ring-gray-300
                                         placeholder:text-gray-400
@@ -59,7 +59,7 @@ export default function AddProduct() {
                   <input
                     type="text"
                     name="price"
-                    className="block w-full rounded-md border-0 py-1.5 
+                    className="block p-2 w-full rounded-md border-0 py-1.5 
                                         text-gray-900 shadow-sm
                                         ring-1 ring-inset ring-gray-300
                                         placeholder:text-gray-400

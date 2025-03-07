@@ -12,7 +12,7 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.5.10",
     "better-sqlite3": "^11.8.1",
-    "next": "15.2.1",
+    "next": "^15.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
