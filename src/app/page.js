@@ -1,20 +1,17 @@
-import ProductCard from '@/components/ProductCard';
-import { getProducts } from '../../database/products';
+import ProductCard from "@/components/ProductCard";
+import { getProducts } from "../../database/products";
 
 export default async function Products() {
-    const products = getProducts();
+  const products = getProducts();
 
-    return (
-        <>
-            <div className='grid md:grid-cols-3 xl:grid-cols-4 grid-cols-1  gap-y-12 gap-x-14 mx-24 my-12'>
-                {
-                    products.map((prod)=>{
-                        return(
-                            <ProductCard product={prod} key={prod.id}/>
-                        )
-                    })
-                }
-            </div>
-        </>
-    )
+  return (
+    <div className="container mx-auto px-6 py-12">
+      <h1 className="text-3xl font-bold text-gray-900 text-center mb-10">Our Products</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+        {products.map((prod) => (
+          <ProductCard product={prod} key={prod.id} />
+        ))}
+      </div>
+    </div>
+  );
 }
