@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 const db = sqlite("products.sqlite");
 
 export default function EditProduct({ params }) {
-    const product = db.prepare(`SELECT * FROM products WHERE id=?`).get(params.id);
+  const [product] = db.prepare(`SELECT * FROM products WHERE id=?`).all(params.id);
     if (!product) {
         return <div>Product not found</div>;
     }
