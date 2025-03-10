@@ -1,25 +1,45 @@
+import { db } from "@/db";
 import sqlite from "better-sqlite3";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-const db = sqlite("products.sqlite");
+// const db = sqlite("products.sqlite");
 
 export default function AddProduct() {
 
-  async function handleSubmit(formData){
-    "use server";
+//   async function handleSubmit(formData){
+//     "use server";
     
-    const newProduct = {
-        name : formData.get('name'),
-        price : formData.get('price'),
-        image : formData.get('image')
-    }
+//     const newProduct = {
+//         name : formData.get('name'),
+//         price : formData.get('price'),
+//         image : formData.get('image')
+//     }
     
-    db.prepare(
-        `INSERT INTO products(name,price,image) VALUES(?,?,?)`
-    ).run(newProduct.name, newProduct.price, newProduct.image.name);
+//     db.prepare(
+//         `INSERT INTO products(name,price,image) VALUES(?,?,?)`
+//     ).run(newProduct.name, newProduct.price, newProduct.image.name);
 
-    redirect('/');
-}
+//     redirect('/');
+// }
+
+    async function handleSubmit(formData){
+      'use server';
+
+      const productData = {
+        name : formData.get('name'),
+        price : parseFloat(formData.get('price')),
+        image : formData.get('image').name
+      };
+
+      await db.products.create({
+        data: productData
+      })
+
+      revalidatePath('/','page');
+      redirect('/');
+
+    }
 
   return (
     <div className="flex justify-center items-center min-h-screen p-4 bg-gray-50">

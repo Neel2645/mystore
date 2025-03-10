@@ -1,31 +1,89 @@
+import { db } from "@/db";
 import sqlite from "better-sqlite3";
 import { redirect } from "next/navigation";
 
-const db = sqlite("products.sqlite");
+// const db = sqlite("products.sqlite");
 
-export default function EditProduct({ params }) {
-  const [product] = db.prepare(`SELECT * FROM products WHERE id=?`).all(params.id);
-    if (!product) {
-        return <div>Product not found</div>;
+export default async function EditProduct({ params }) {
+  const pId = parseInt(params.id);
+  // const [product] = db.prepare(`SELECT * FROM products WHERE id=?`).all(pId);
+  const product = await db.products.findUnique({
+    where:{
+      id : pId
     }
-    
+  })
+
+  if (!product) {
+      return <div>Product not found</div>;
+  }
   console.log(product);
+
+  // async function handleSubmit(formData) {
+  //   "use server";
+
+  //   const updatedData = {
+  //     name: formData.get("name"),
+  //     price: formData.get("price"),
+  //     image: formData.get("image"),
+  //   };
+
+  //   db.prepare(
+  //     `UPDATE products SET name=?, price=?, image=? WHERE id=?`
+  //   ).run(updatedData.name, updatedData.price, updatedData.image.name, params.id);
+
+  //   redirect("/");
+  // }
+
+
+  // async function handleSubmit(formData) {
+  //   "use server";
+
+    
+  //     const updatedData = {
+  //       name: formData.get("name"),
+  //       price: parseFloat(formData.get("price")),
+  //       image: formData.get("image").name,
+  //     };
+  
+  //     await db.products.update({
+  //       where:{
+  //         id : pId
+  //       },
+  //       data : updatedData
+  //     })
+
+  //   redirect("/");
+  // }
 
   async function handleSubmit(formData) {
     "use server";
 
-    const updatedData = {
-      name: formData.get("name"),
-      price: formData.get("price"),
-      image: formData.get("image"),
-    };
-
-    db.prepare(
-      `UPDATE products SET name=?, price=?, image=? WHERE id=?`
-    ).run(updatedData.name, updatedData.price, updatedData.image.name, params.id);
-
+    
+      const updatedData = {
+        name: formData.get("name"),
+        price: parseFloat(formData.get("price")),
+        image: formData.get("image").name,
+      };
+  
+      await db.products.upsert({
+        where:{
+          id : 1
+        },
+        update:{
+          name : "updatedName",
+          price : 23,
+          image : "vercel.svg"
+        },
+        create:{
+          name : "createdName",
+          price : 1000,
+          image : "strawberry.jpg"
+        }
+      })
+      
     redirect("/");
   }
+
 
   return (
     <div className="flex justify-center items-center min-h-screen p-4 bg-gray-50">

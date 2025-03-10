@@ -1,8 +1,12 @@
 import ProductCard from "@/components/ProductCard";
 import { getProducts } from "../../database/products";
+import { db } from "@/db";
 
 export default async function Products() {
-  const products = getProducts();
+  // const products = getProducts();
+
+  const products = await db.products.findMany();
+  // console.log(products);
 
   return (
     <div className="container mx-auto px-6 pt-6 pb-12">
