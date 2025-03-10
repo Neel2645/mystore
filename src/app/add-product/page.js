@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 const db = sqlite("products.sqlite");
 
 export default function AddProduct() {
+
   async function handleSubmit(formData){
     "use server";
     
@@ -50,7 +51,7 @@ export default function AddProduct() {
                 Price
               </label>
               <input
-                type="text"
+                type="number"
                 name="price"
                 className="w-full p-2 rounded-md border border-gray-300 shadow-sm 
                            focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
